@@ -126,19 +126,48 @@
 //     fontWeight: '700',
 //   },
 // });
-import React, { createContext, useState } from "react";
-import { MyComponent } from "./components/Context/MyComponent";
+// import React, { createContext, useState } from "react";
+// import { MyComponent } from "./components/Context/MyComponent";
 
-export const MyContext = createContext();
+// export const MyContext = createContext();
+
+// const App = () => {
+//     const [value, setValue] = useState('Hello World!');
+
+//     return (
+//         <MyContext.Provider value={ { value, setValue }}>
+//             <MyComponent />
+//         </MyContext.Provider>
+//     )
+// }
+
+import { Dimensions, View, Text } from "react-native";
+import { useEffect, useState } from "react";
 
 const App = () => {
-    const [value, setValue] = useState('Hello World!');
+  const [orientation, setOrientation] = useState("PORTRAIT");
 
-    return (
-        <MyContext.Provider value={ { value, setValue }}>
-            <MyComponent />
-        </MyContext.Provider>
-    )
+  useEffect(() => {
+
+    const updateOrientation = () => {
+      const { width, height } = Dimensions.get('window');
+      setOrientation(width > height ? 'LANDSCAPE': 'PORTRAIT');
+    }
+
+    Dimensions.addEventListener('change', updateOrientation);
+    updateOrientation();
+  
+    return () => {
+      Dimensions.removeEventListener('change', updateOrientation);
+    };
+
+  }, []);
+
+  return(
+    <View>
+      <Text>Current Orientation: {orientation}</Text>
+    </View>
+  )
 }
 
 export default App;
