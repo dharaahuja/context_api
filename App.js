@@ -5,10 +5,10 @@
  * @format
  */
 
-import React from 'react';
-import { View } from 'react-native';
-// import type {PropsWithChildren} from 'react';
-import { ButtonFactory } from './components/ButtonFactory';
+// import React from 'react';
+// import { View } from 'react-native';
+// // import type {PropsWithChildren} from 'react';
+// import { ButtonFactory } from './components/ButtonFactory';
 // import {
 //   SafeAreaView,
 //   ScrollView,
@@ -57,15 +57,15 @@ import { ButtonFactory } from './components/ButtonFactory';
 //   );
 // }
 
-const App = () => {
-  return (
-    <View>
-      {ButtonFactory('primary', { text: 'Primary', onPress: () => alert('Primary Button Pressed') })}
-      {ButtonFactory('secondary', { text: 'Secondary', onPress: () => alert('Secondary Button Pressed') })}
-      {ButtonFactory('danger', { text: 'Danger', onPress: () => alert('Danger Button Pressed') })}
-    </View>
-  )
-}
+// const App = () => {
+//   return (
+//     <View>
+//       {ButtonFactory('primary', { text: 'Primary', onPress: () => alert('Primary Button Pressed') })}
+//       {ButtonFactory('secondary', { text: 'Secondary', onPress: () => alert('Secondary Button Pressed') })}
+//       {ButtonFactory('danger', { text: 'Danger', onPress: () => alert('Danger Button Pressed') })}
+//     </View>
+//   )
+// }
 
 // function App(): React.JSX.Element {
 //   const isDarkMode = useColorScheme() === 'dark';
@@ -126,5 +126,19 @@ const App = () => {
 //     fontWeight: '700',
 //   },
 // });
+import React, { createContext, useState } from "react";
+import { MyComponent } from "./components/Context/MyComponent";
+
+export const MyContext = createContext();
+
+const App = () => {
+    const [value, setValue] = useState('Hello World!');
+
+    return (
+        <MyContext.Provider value={ { value, setValue }}>
+            <MyComponent />
+        </MyContext.Provider>
+    )
+}
 
 export default App;
